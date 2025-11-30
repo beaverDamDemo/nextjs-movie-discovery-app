@@ -1,6 +1,8 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import { fetchPopularMovies } from "@/lib/tmdb";
+import Link from "next/link";
+import { FaArrowRight } from "react-icons/fa";
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();
@@ -26,9 +28,15 @@ export default async function Page() {
             {popularMovies.results.map((movie: any) => (
               <li
                 key={movie.id}
-                className="odd:bg-gray-100 even:bg-blue-100 odd:text-black even:text-blue-900 p-2"
+                className="odd:bg-gray-100 even:bg-blue-100 odd:text-black even:text-blue-900 p-2 flex items-center justify-between"
               >
-                {movie.title}
+                <span>{movie.title}</span>
+                <Link
+                  href={`/movie/${movie.id}`}
+                  className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  Details <FaArrowRight />
+                </Link>
               </li>
             ))}
           </ul>

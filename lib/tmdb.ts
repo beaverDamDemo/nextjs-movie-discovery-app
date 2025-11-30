@@ -19,3 +19,19 @@ export async function fetchPopularMovies() {
 
   return res.json();
 }
+
+export async function fetchMovieById(id: string) {
+  const res = await fetch(`${BASE_URL}/movie/${id}?language=en-US`, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      accept: "application/json",
+    },
+    next: { revalidate: 3600 },
+  });
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch movie with id ${id}`);
+  }
+
+  return res.json();
+}
