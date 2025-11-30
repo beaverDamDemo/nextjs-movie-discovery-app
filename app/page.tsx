@@ -1,7 +1,10 @@
 import Image from "next/image";
-import styles from "./page.module.css"; // CSS module for styling
+import styles from "./page.module.css";
+import { fetchPopularMovies } from "@/lib/tmdb";
 
-export default function Page() {
+export default async function Page() {
+  const popularMovies = await fetchPopularMovies();
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -16,6 +19,20 @@ export default function Page() {
         <h1 className="mt-7 text-3xl font-bold text-blue-500">
           This will be the home page
         </h1>
+
+        <div>
+          <h1 className="text-2xl font-bold">Popular Movies</h1>
+          <ul className="mt-5">
+            {popularMovies.results.map((movie: any) => (
+              <li
+                key={movie.id}
+                className="odd:bg-gray-100 even:bg-blue-100 odd:text-black even:text-blue-900 p-2"
+              >
+                {movie.title}
+              </li>
+            ))}
+          </ul>
+        </div>
 
         <div className={`styles.challenge mt-7`}>
           <h1 className={styles.title}>
