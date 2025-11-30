@@ -67,13 +67,6 @@ export default async function Page() {
                 Implement a search bar that filters results or queries the API.
               </p>
             </div>
-            <div className={styles.taskItem}>
-              <h3>Details</h3>
-              <p>
-                Clicking a movie should take the user to a detailed view (new
-                page/route) with more information about that specific movie.
-              </p>
-            </div>
           </div>
 
           <div className={styles.section}>
