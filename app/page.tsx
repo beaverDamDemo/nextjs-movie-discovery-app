@@ -6,6 +6,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();
+  console.log("⚠️ ~ popularMovies:", popularMovies);
 
   return (
     <div className={styles.container}>
@@ -24,19 +25,62 @@ export default async function Page() {
 
         <div>
           <h1 className="text-2xl font-bold">Popular Movies</h1>
-          <ul className="mt-5">
+          <ul className="mt-5 space-y-4">
             {popularMovies.results.map((movie: any) => (
               <li
                 key={movie.id}
-                className="odd:bg-gray-100 even:bg-blue-100 odd:text-black even:text-blue-900 p-2 flex items-center justify-between"
+                className="bg-white shadow rounded-lg p-4 flex flex-col md:flex-row gap-4"
               >
-                <span>{movie.title}</span>
-                <Link
-                  href={`/movie/${movie.id}`}
-                  className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                  Details <FaArrowRight />
-                </Link>
+                <div className="w-full md:w-1/4">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                    alt={movie.title}
+                    className="rounded-md"
+                  />
+                </div>
+
+                <div className="flex-1 space-y-2">
+                  <h2 className="text-xl font-bold">
+                    <Link
+                      href={`/movie/${movie.id}`}
+                      className="inline-flex items-center gap-2 py-1"
+                    >
+                      {movie.title}{" "}
+                    </Link>
+                  </h2>
+                  <p className="text-sm text-gray-600 italic">
+                    Original title: {movie.original_title} (
+                    {movie.original_language})
+                  </p>
+                  <p className="text-gray-700">{movie.overview}</p>
+
+                  <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-gray-600">
+                    <p>
+                      <span className="font-semibold">Release date:</span>{" "}
+                      {movie.release_date}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Popularity:</span>{" "}
+                      {movie.popularity}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Vote average:</span>{" "}
+                      {movie.vote_average}/10
+                    </p>
+                    <p>
+                      <span className="font-semibold">Votes:</span>{" "}
+                      {movie.vote_count}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Adult:</span>{" "}
+                      {movie.adult ? "Yes" : "No"}
+                    </p>
+                    <p>
+                      <span className="font-semibold">Video:</span>{" "}
+                      {movie.video ? "Yes" : "No"}
+                    </p>
+                  </div>
+                </div>
               </li>
             ))}
           </ul>
