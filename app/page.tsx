@@ -2,70 +2,90 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import { fetchPopularMovies } from '@/lib/tmdb';
 import Link from 'next/link';
+import { FaInfo } from 'react-icons/fa';
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();
 
   return (
     <div className={styles.container}>
+      <header className={styles.header}>
+        <div className={styles.logo}>
+          <Image src="/favicon.png" alt="App Logo" width={32} height={32} />
+          <span className={styles.appName}>Movie Discovery</span>
+        </div>
+        <div className={styles.searchWrapper}>
+          <input
+            type="text"
+            placeholder="Search movies..."
+            className={styles.searchInput}
+          />
+        </div>
+      </header>
+
       <main className={styles.main}>
         <div>
           <h1 className="text-2xl font-bold">Popular Movies</h1>
-          <ul className="mt-5 space-y-4">
+          <ul className="mt-5 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {popularMovies.results.map((movie: any) => (
               <li
                 key={movie.id}
-                className="bg-white shadow rounded-lg p-4 flex flex-col md:flex-row gap-4"
+                className="bg-white shadow rounded-lg p-4 flex flex-col relative"
               >
-                <div className="w-full md:w-1/4">
+                <div className="w-full relative">
                   <img
                     src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                     alt={movie.title}
-                    className="rounded-md"
+                    className="rounded-md w-full"
                   />
+
+                  {/* group wrapper around button + tooltip */}
+                  <div className="absolute top-2 right-2 group">
+                    <button className="flex items-center justify-center w-8 h-8 rounded-full border border-black bg-white text-black hover:bg-gray-100">
+                      <FaInfo className="w-4 h-4" />
+                    </button>
+                    <div className="absolute right-0 mt-2 w-64 bg-gray-100 text-gray-700 text-sm rounded shadow-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
+                      <p>
+                        <span className="font-semibold">Release date:</span>{' '}
+                        {movie.release_date}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Popularity:</span>{' '}
+                        {movie.popularity}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Vote average:</span>{' '}
+                        {movie.vote_average}/10
+                      </p>
+                      <p>
+                        <span className="font-semibold">Votes:</span>{' '}
+                        {movie.vote_count}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Adult:</span>{' '}
+                        {movie.adult ? 'Yes' : 'No'}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Video:</span>{' '}
+                        {movie.video ? 'Yes' : 'No'}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex-1 space-y-2">
+                <div className="flex-1 space-y-2 mt-2">
                   <h2 className="text-xl font-bold">
                     <Link
                       href={`/movie/${movie.id}`}
                       className="inline-flex items-center gap-2 py-1 transition-colors duration-100 ease-in-out hover:underline"
                     >
-                      {movie.title}{' '}
+                      {movie.title}
                     </Link>
                   </h2>
                   <p className="text-sm text-gray-600 italic">
                     Original title: {movie.original_title} (
                     {movie.original_language})
                   </p>
-                  <p className="text-gray-700">{movie.overview}</p>
-
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-gray-600">
-                    <p>
-                      <span className="font-semibold">Release date:</span>{' '}
-                      {movie.release_date}
-                    </p>
-                    <p>
-                      <span className="font-semibold">Popularity:</span>{' '}
-                      {movie.popularity}
-                    </p>
-                    <p>
-                      <span className="font-semibold">Vote average:</span>{' '}
-                      {movie.vote_average}/10
-                    </p>
-                    <p>
-                      <span className="font-semibold">Votes:</span>{' '}
-                      {movie.vote_count}
-                    </p>
-                    <p>
-                      <span className="font-semibold">Adult:</span>{' '}
-                      {movie.adult ? 'Yes' : 'No'}
-                    </p>
-                    <p>
-                      <span className="font-semibold">Video:</span>{' '}
-                      {movie.video ? 'Yes' : 'No'}
-                    </p>
-                  </div>
                 </div>
               </li>
             ))}
@@ -76,7 +96,6 @@ export default async function Page() {
           <h1 className={styles.title}>
             Next.js Frontend Challenge: Movie Discovery App
           </h1>
-
           <div className={styles.section}>
             <h2 className={styles.subtitle}>Objective</h2>
             <p>
@@ -84,7 +103,6 @@ export default async function Page() {
               movies and search for specific titles using the TMDB API.
             </p>
           </div>
-
           <div className={styles.section}>
             <h2 className={styles.subtitle}>The Task</h2>
             <div className={styles.taskItem}>
@@ -98,7 +116,6 @@ export default async function Page() {
               </p>
             </div>
           </div>
-
           <div className={styles.section}>
             <h2 className={styles.subtitle}>Extra credit</h2>
             <ul>
