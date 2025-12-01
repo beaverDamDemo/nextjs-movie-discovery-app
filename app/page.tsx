@@ -2,8 +2,6 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import { fetchPopularMovies } from '@/lib/tmdb';
 import Link from 'next/link';
-import { FaArrowRight } from 'react-icons/fa';
-import Loading from './loading';
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();
@@ -11,7 +9,6 @@ export default async function Page() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        {/* <Loading /> */}
         <div>
           <h1 className="text-2xl font-bold">Popular Movies</h1>
           <ul className="mt-5 space-y-4">
