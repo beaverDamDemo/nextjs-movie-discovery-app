@@ -43,11 +43,13 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
             className="bg-white shadow rounded-lg p-4 flex flex-col relative"
           >
             <div className="w-full relative">
-              <img
-                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                alt={movie.title}
-                className="rounded-md w-full"
-              />
+              <Link href={`/movie/${movie.id}`} className="">
+                <img
+                  src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                  alt={movie.title}
+                  className="rounded-md w-full"
+                />
+              </Link>
 
               <button
                 onClick={() => setSelectedMovie(movie)}
