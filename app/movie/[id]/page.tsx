@@ -1,4 +1,5 @@
-import { fetchMovieById } from "@/lib/tmdb";
+import { fetchMovieById } from '@/lib/tmdb';
+import Image from 'next/image';
 
 export default async function ProductPage({
   params,
@@ -7,109 +8,124 @@ export default async function ProductPage({
 }) {
   const id = (await params).id;
   const movie = await fetchMovieById(id);
-  console.log("⚠️ ~ movie:", movie);
 
   return (
-    <div className="p-6 space-y-2">
-      <p className="text-lg font-bold">Movie ID: {movie.id}</p>
-      <h1 className="text-3xl font-bold mb-4">{movie.title}</h1>
-      <p className="italic text-gray-600">{movie.tagline}</p>
-      <p className="mb-2 text-gray-700">{movie.overview}</p>
-
-      <p className="text-sm text-gray-500">
-        Original title: {movie.original_title}
-      </p>
-      <p className="text-sm text-gray-500">
-        Original language: {movie.original_language}
-      </p>
-      <p className="text-sm text-gray-500">
-        Origin countries: {movie.origin_country?.join(", ")}
-      </p>
-
-      <p className="text-sm text-gray-500">
-        Release date: {movie.release_date}
-      </p>
-      <p className="text-sm text-gray-500">Status: {movie.status}</p>
-      <p className="text-sm text-gray-500">Runtime: {movie.runtime} minutes</p>
-
-      <p className="text-sm text-gray-500">
-        Budget: ${movie.budget.toLocaleString()}
-      </p>
-      <p className="text-sm text-gray-500">
-        Revenue: ${movie.revenue.toLocaleString()}
-      </p>
-
-      <p className="text-sm text-gray-500">Popularity: {movie.popularity}</p>
-      <p className="text-sm text-gray-500">
-        Rating: {movie.vote_average}/10 ({movie.vote_count} votes)
-      </p>
-
-      <p className="text-sm text-gray-500">IMDB ID: {movie.imdb_id}</p>
-      {movie.homepage && (
-        <p className="text-sm text-blue-600">
-          Homepage:{" "}
-          <a href={movie.homepage} target="_blank">
-            {movie.homepage}
-          </a>
-        </p>
-      )}
-
-      <div>
-        <h2 className="font-semibold">Genres</h2>
-        <ul className="list-disc list-inside">
-          {movie.genres?.map((g: any) => (
-            <li key={g.id}>{g.name}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h2 className="font-semibold">Production Companies</h2>
-        <ul className="list-disc list-inside">
-          {movie.production_companies?.map((c: any) => (
-            <li key={c.id}>
-              {c.name} ({c.origin_country})
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h2 className="font-semibold">Production Countries</h2>
-        <ul className="list-disc list-inside">
-          {movie.production_countries?.map((c: any) => (
-            <li key={c.iso_3166_1}>{c.name}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h2 className="font-semibold">Spoken Languages</h2>
-        <ul className="list-disc list-inside">
-          {movie.spoken_languages?.map((l: any) => (
-            <li key={l.iso_639_1}>
-              {l.english_name} ({l.name})
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h2 className="font-semibold">Poster</h2>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-          className="rounded shadow"
-        />
-      </div>
-
-      <div>
-        <h2 className="font-semibold">Backdrop</h2>
-        <img
-          src={`https://image.tmdb.org/t/p/w780${movie.backdrop_path}`}
+    <div className="min-h-screen bg-gray-50">
+      <div className="relative h-72 w-full">
+        <Image
+          src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
           alt={`${movie.title} backdrop`}
-          className="rounded shadow"
+          fill
+          className="object-cover brightness-75"
         />
+        <div className="absolute bottom-6 left-6 text-white">
+          <h1 className="text-4xl font-bold">{movie.title}</h1>
+          <p className="italic text-gray-200">{movie.tagline}</p>
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <Image
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            width={400}
+            height={600}
+            className="rounded shadow"
+          />
+        </div>
+
+        <div className="md:col-span-2 space-y-6">
+          <p className="text-gray-700">{movie.overview}</p>
+
+          <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
+            <p>
+              <span className="font-semibold">Release date:</span>{' '}
+              {movie.release_date}
+            </p>
+            <p>
+              <span className="font-semibold">Runtime:</span> {movie.runtime}{' '}
+              min
+            </p>
+            <p>
+              <span className="font-semibold">Budget:</span> $
+              {movie.budget.toLocaleString()}
+            </p>
+            <p>
+              <span className="font-semibold">Revenue:</span> $
+              {movie.revenue.toLocaleString()}
+            </p>
+            <p>
+              <span className="font-semibold">Rating:</span>{' '}
+              {movie.vote_average}/10 ({movie.vote_count} votes)
+            </p>
+            <p>
+              <span className="font-semibold">Popularity:</span>{' '}
+              {movie.popularity}
+            </p>
+            <p>
+              <span className="font-semibold">Status:</span> {movie.status}
+            </p>
+            <p>
+              <span className="font-semibold">IMDB ID:</span> {movie.imdb_id}
+            </p>
+          </div>
+
+          {movie.homepage && (
+            <a
+              href={movie.homepage}
+              target="_blank"
+              className="text-blue-600 hover:underline text-sm"
+            >
+              Official Homepage
+            </a>
+          )}
+
+          <div>
+            <h2 className="font-semibold">Genres</h2>
+            <div className="flex flex-wrap gap-2 mt-1">
+              {movie.genres?.map((g: any) => (
+                <span
+                  key={g.id}
+                  className="px-2 py-1 bg-gray-200 rounded text-sm"
+                >
+                  {g.name}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h2 className="font-semibold">Production Companies</h2>
+            <ul className="list-disc list-inside text-sm text-gray-600">
+              {movie.production_companies?.map((c: any) => (
+                <li key={c.id}>
+                  {c.name} ({c.origin_country})
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="font-semibold">Production Countries</h2>
+            <ul className="list-disc list-inside text-sm text-gray-600">
+              {movie.production_countries?.map((c: any) => (
+                <li key={c.iso_3166_1}>{c.name}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="font-semibold">Spoken Languages</h2>
+            <ul className="list-disc list-inside text-sm text-gray-600">
+              {movie.spoken_languages?.map((l: any) => (
+                <li key={l.iso_639_1}>
+                  {l.english_name} ({l.name})
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
