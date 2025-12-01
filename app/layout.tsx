@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ThemeToggle } from './ThemeToggle';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,6 +35,7 @@ export default function RootLayout({
             <Image src="/favicon.png" alt="App Logo" width={32} height={32} />
             <span className="font-bold text-lg">Movie Discovery</span>
           </Link>
+          <ThemeToggle />
         </header>
 
         <main className="p-6">{children}</main>
