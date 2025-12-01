@@ -40,7 +40,7 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
         {filteredMovies.map((movie) => (
           <li
             key={movie.id}
-            className="bg-white shadow rounded-lg p-4 flex flex-col relative"
+            className="shadow rounded-lg p-4 flex flex-col relative"
           >
             <div className="w-full relative">
               <Link href={`/movie/${movie.id}`} className="">
@@ -53,7 +53,7 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
 
               <button
                 onClick={() => setSelectedMovie(movie)}
-                className="absolute top-2 right-2 flex items-center justify-center w-8 h-8 rounded-full border border-black bg-white text-black hover:bg-gray-100 cursor-pointer"
+                className="absolute top-2 right-2 flex items-center justify-center w-8 h-8 rounded-full border border-black hover:bg-gray-100 cursor-pointer"
               >
                 <FaInfo className="w-4 h-4" />
               </button>
@@ -68,7 +68,7 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
                   {movie.title}
                 </Link>
               </h2>
-              <p className="text-sm text-gray-600 italic">
+              <p className="text-sm   italic">
                 Original title: {movie.original_title} (
                 {movie.original_language})
               </p>

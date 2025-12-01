@@ -17,6 +17,16 @@
   --color-text-muted: #6b7280;
   --color-success: #10b981;
   --color-error: #ef4444;
+  --search-bg: #ffffff;
+  --search-text: #1f2937;
+  --popover-bg: #ffffff;
+  --popover-text: #171717;
+  --card-bg: #ffffff;
+  --card-border: #1f2937;
+  --card-text: #171717;
+  --card-hover-bg: #f3f4f6;
+  --text-muted: #6b7280;
+  --overlay-bg: rgba(0, 0, 0, 0.8);
 }
 
 [data-theme='dark'] {
@@ -30,6 +40,16 @@
   --color-secondary: #fbbf24;
   --color-text: #f8f9fa;
   --color-text-muted: #9ca3af;
+  --search-bg: #1f2937;
+  --search-text: #f8f9fa;
+  --popover-bg: #111827;
+  --popover-text: #f8f9fa;
+  --card-bg: #1f2937;
+  --card-border: #f8f9fa;
+  --card-text: #f8f9fa;
+  --card-hover-bg: #374151;
+  --text-muted: #9ca3af;
+  --overlay-bg: rgba(0, 0, 0, 0.8);
 }
 
 @theme inline {
