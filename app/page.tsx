@@ -1,28 +1,15 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import { fetchPopularMovies } from "@/lib/tmdb";
-import Link from "next/link";
-import { FaArrowRight } from "react-icons/fa";
+import Image from 'next/image';
+import styles from './page.module.css';
+import { fetchPopularMovies } from '@/lib/tmdb';
+import Link from 'next/link';
+import { FaArrowRight } from 'react-icons/fa';
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();
-  console.log("⚠️ ~ popularMovies:", popularMovies);
 
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <h1 className="mt-7 text-3xl font-bold text-blue-500">
-          This will be the home page
-        </h1>
-
         <div>
           <h1 className="text-2xl font-bold">Popular Movies</h1>
           <ul className="mt-5 space-y-4">
@@ -43,9 +30,9 @@ export default async function Page() {
                   <h2 className="text-xl font-bold">
                     <Link
                       href={`/movie/${movie.id}`}
-                      className="inline-flex items-center gap-2 py-1"
+                      className="inline-flex items-center gap-2 py-1 transition-colors duration-100 ease-in-out hover:underline"
                     >
-                      {movie.title}{" "}
+                      {movie.title}{' '}
                     </Link>
                   </h2>
                   <p className="text-sm text-gray-600 italic">
@@ -56,28 +43,28 @@ export default async function Page() {
 
                   <div className="grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-gray-600">
                     <p>
-                      <span className="font-semibold">Release date:</span>{" "}
+                      <span className="font-semibold">Release date:</span>{' '}
                       {movie.release_date}
                     </p>
                     <p>
-                      <span className="font-semibold">Popularity:</span>{" "}
+                      <span className="font-semibold">Popularity:</span>{' '}
                       {movie.popularity}
                     </p>
                     <p>
-                      <span className="font-semibold">Vote average:</span>{" "}
+                      <span className="font-semibold">Vote average:</span>{' '}
                       {movie.vote_average}/10
                     </p>
                     <p>
-                      <span className="font-semibold">Votes:</span>{" "}
+                      <span className="font-semibold">Votes:</span>{' '}
                       {movie.vote_count}
                     </p>
                     <p>
-                      <span className="font-semibold">Adult:</span>{" "}
-                      {movie.adult ? "Yes" : "No"}
+                      <span className="font-semibold">Adult:</span>{' '}
+                      {movie.adult ? 'Yes' : 'No'}
                     </p>
                     <p>
-                      <span className="font-semibold">Video:</span>{" "}
-                      {movie.video ? "Yes" : "No"}
+                      <span className="font-semibold">Video:</span>{' '}
+                      {movie.video ? 'Yes' : 'No'}
                     </p>
                   </div>
                 </div>
