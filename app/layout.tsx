@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <header className="header flex items-center justify-between px-6 py-4">
           <Link href="/" className="flex items-center gap-2">
@@ -38,7 +38,7 @@ export default function RootLayout({
           <ThemeToggle />
         </header>
 
-        <main className="p-6">{children}</main>
+        <main className="flex-1 p-6">{children}</main>
 
         <footer className="footer flex items-center justify-center px-6 py-4">
           <p className="text-sm">
