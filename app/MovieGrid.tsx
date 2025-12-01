@@ -3,14 +3,30 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FaInfo } from 'react-icons/fa';
+import { FaSearch } from 'react-icons/fa';
+import styles from './movieGrid.module.css';
 
 export default function MovieGrid({ movies }: { movies: any[] }) {
   const [selectedMovie, setSelectedMovie] = useState<any | null>(null);
+  const [query, setQuery] = useState('');
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
     <div>
+      <div className={styles.searchWrapper}>
+        <FaSearch className={styles.searchIcon} />
+        <input
+          type="text"
+          placeholder="Search movies..."
+          className={styles.searchInput}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </div>
       <ul className="mt-5 grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
-        {movies.map((movie) => (
+        {filteredMovies.map((movie) => (
           <li
             key={movie.id}
             className="bg-white shadow rounded-lg p-4 flex flex-col relative"
