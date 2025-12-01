@@ -47,6 +47,7 @@
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
+
 .main {
   display: flex;
   flex-direction: column;
@@ -57,41 +58,4 @@
   padding: 4rem 2rem;
   background-color: var(--background);
   color: var(--foreground);
-}
-
-.challenge {
-  width: 100%;
-}
-
-.section {
-  margin-top: 2rem;
-}
-
-.taskItem,
-.rule {
-  margin-top: 1rem;
-}
-
-.title {
-  color: var(--color-primary);
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.subtitle {
-  color: var(--color-secondary);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.textMuted {
-  color: var(--color-text-muted);
-}
-
-.success {
-  color: var(--color-success);
-}
-
-.error {
-  color: var(--color-error);
 }
