@@ -1,7 +1,8 @@
 import { fetchMovieById } from '@/lib/tmdb';
 import Image from 'next/image';
+import styles from './singleMovie.module.css';
 
-export default async function ProductPage({
+export default async function SingleMovie({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -10,7 +11,7 @@ export default async function ProductPage({
   const movie = await fetchMovieById(id);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className={styles.page}>
       <div className="relative h-72 w-full">
         <Image
           src={`https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`}
@@ -18,9 +19,9 @@ export default async function ProductPage({
           fill
           className="object-cover brightness-75"
         />
-        <div className="absolute bottom-6 left-6 text-white">
+        <div className={styles.backdropOverlay}>
           <h1 className="text-4xl font-bold">{movie.title}</h1>
-          <p className="italic text-gray-200">{movie.tagline}</p>
+          <p className={styles.backdropTagline}>{movie.tagline}</p>
         </div>
       </div>
 
@@ -36,9 +37,9 @@ export default async function ProductPage({
         </div>
 
         <div className="md:col-span-2 space-y-6">
-          <p className="text-gray-700">{movie.overview}</p>
+          <p className={styles.overview}>{movie.overview}</p>
 
-          <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
+          <div className={styles.details}>
             <p>
               <span className="font-semibold">Release date:</span>{' '}
               {movie.release_date}
@@ -75,7 +76,7 @@ export default async function ProductPage({
             <a
               href={movie.homepage}
               target="_blank"
-              className="text-blue-600 hover:underline text-sm"
+              className={styles.homepageLink}
             >
               Official Homepage
             </a>
@@ -85,10 +86,7 @@ export default async function ProductPage({
             <h2 className="font-semibold">Genres</h2>
             <div className="flex flex-wrap gap-2 mt-1">
               {movie.genres?.map((g: any) => (
-                <span
-                  key={g.id}
-                  className="px-2 py-1 bg-gray-200 rounded text-sm"
-                >
+                <span key={g.id} className={styles.genreBadge}>
                   {g.name}
                 </span>
               ))}
@@ -97,7 +95,7 @@ export default async function ProductPage({
 
           <div>
             <h2 className="font-semibold">Production Companies</h2>
-            <ul className="list-disc list-inside text-sm text-gray-600">
+            <ul className={styles.listMuted}>
               {movie.production_companies?.map((c: any) => (
                 <li key={c.id}>
                   {c.name} ({c.origin_country})
@@ -108,7 +106,7 @@ export default async function ProductPage({
 
           <div>
             <h2 className="font-semibold">Production Countries</h2>
-            <ul className="list-disc list-inside text-sm text-gray-600">
+            <ul className={styles.listMuted}>
               {movie.production_countries?.map((c: any) => (
                 <li key={c.iso_3166_1}>{c.name}</li>
               ))}
@@ -117,7 +115,7 @@ export default async function ProductPage({
 
           <div>
             <h2 className="font-semibold">Spoken Languages</h2>
-            <ul className="list-disc list-inside text-sm text-gray-600">
+            <ul className={styles.listMuted}>
               {movie.spoken_languages?.map((l: any) => (
                 <li key={l.iso_639_1}>
                   {l.english_name} ({l.name})
