@@ -24,7 +24,7 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
 
               <button
                 onClick={() => setSelectedMovie(movie)}
-                className="absolute top-2 right-2 flex items-center justify-center w-8 h-8 rounded-full border border-black bg-white text-black hover:bg-gray-100"
+                className="absolute top-2 right-2 flex items-center justify-center w-8 h-8 rounded-full border border-black bg-white text-black hover:bg-gray-100 cursor-pointer"
               >
                 <FaInfo className="w-4 h-4" />
               </button>
