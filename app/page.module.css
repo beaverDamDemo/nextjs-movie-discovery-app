@@ -7,27 +7,6 @@
   font-family: sans-serif;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--color-bg-light);
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.appName {
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: var(--color-primary);
-}
-
 .searchWrapper {
   flex: 1;
   max-width: 320px;
@@ -55,7 +34,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 4rem 2rem;
-  background-color: var(--background);
+  /* padding: 4rem 2rem; */
+  /* background-color: var(--background); */
   color: var(--foreground);
 }
