@@ -4,6 +4,7 @@ import './globals.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ThemeToggle } from './ThemeToggle';
+import { Providers } from './providers';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -26,26 +27,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <header className="header flex items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src="/favicon.png" alt="App Logo" width={32} height={32} />
-            <span className="font-bold text-lg">Movie Discovery</span>
-          </Link>
-          <ThemeToggle />
-        </header>
+        <Providers>
+          <header className="header flex items-center justify-between px-6 py-4">
+            <Link href="/" className="flex items-center gap-2">
+              <Image src="/favicon.png" alt="App Logo" width={32} height={32} />
+              <span className="font-bold text-lg">Movie Discovery</span>
+            </Link>
+            <ThemeToggle />
+          </header>
 
-        <main className="flex-1 p-6">{children}</main>
+          <main className="flex-1 p-6">{children}</main>
 
-        <footer className="footer flex items-center justify-center px-6 py-4">
-          <p className="text-sm">
-            &copy; {new Date().getFullYear()} Movie Discovery. All rights
-            reserved.
-          </p>
-        </footer>
+          <footer className="footer flex items-center justify-center px-6 py-4">
+            <p className="text-sm">
+              &copy; {new Date().getFullYear()} Movie Discovery. All rights
+              reserved.
+            </p>
+          </footer>
+        </Providers>
       </body>
     </html>
   );

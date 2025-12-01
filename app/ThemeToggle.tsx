@@ -1,30 +1,21 @@
 'use client';
 
+import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import styles from './themeToggle.module.css';
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('theme');
-    if (saved === 'light' || saved === 'dark') {
-      setTheme(saved);
-      document.documentElement.setAttribute('data-theme', saved);
-    } else {
-      const prefersDark = window.matchMedia(
-        '(prefers-color-scheme: dark)'
-      ).matches;
-      const initial = prefersDark ? 'dark' : 'light';
-      setTheme(initial);
-      document.documentElement.setAttribute('data-theme', initial);
-    }
+    setMounted(true);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+  // this is solution for flickering from light to dark theme on load
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div
