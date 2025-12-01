@@ -1,0 +1,36 @@
+.toggle {
+  width: 60px;
+  height: 30px;
+  border-radius: 9999px;
+  background-color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.knob {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition:
+    left 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.light .knob {
+  left: 2px;
+}
+
+.dark .knob {
+  left: 32px;
+}
