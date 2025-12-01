@@ -78,37 +78,35 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
       {selectedMovie && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          onClick={() => setSelectedMovie(null)} // close when clicking background
+          onClick={() => setSelectedMovie(null)}
         >
           <div
-            className="bg-white rounded-lg shadow-lg p-6 w-96 relative"
-            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside modal
+            className={`${styles.popover}`}
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setSelectedMovie(null)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-black cursor-pointer"
+              className={styles.popoverClose}
             >
               ✕
             </button>
-            <h2 className="text-xl font-bold mb-2">{selectedMovie.title}</h2>
-            <p className="text-sm text-gray-700 mb-2">
-              {selectedMovie.overview}
+            <h2 className={styles.popoverHeader}>{selectedMovie.title}</h2>
+            <p>{selectedMovie.overview}</p>
+            <p>
+              <strong>Release date:</strong> {selectedMovie.release_date}
             </p>
-            <p className="text-sm text-gray-600">
-              Release date: {selectedMovie.release_date}
+            <p>
+              <strong>Popularity:</strong> {selectedMovie.popularity}
             </p>
-            <p className="text-sm text-gray-600">
-              Popularity: {selectedMovie.popularity}
-            </p>
-            <p className="text-sm text-gray-600">
-              Rating: {selectedMovie.vote_average}/10 (
+            <p>
+              <strong>Rating:</strong> {selectedMovie.vote_average}/10 (
               {selectedMovie.vote_count} votes)
             </p>
-            <p className="text-sm text-gray-600">
-              Adult: {selectedMovie.adult ? 'Yes' : 'No'}
+            <p>
+              <strong>Adult:</strong> {selectedMovie.adult ? 'Yes' : 'No'}
             </p>
-            <p className="text-sm text-gray-600">
-              Video: {selectedMovie.video ? 'Yes' : 'No'}
+            <p>
+              <strong>Video:</strong> {selectedMovie.video ? 'Yes' : 'No'}
             </p>
           </div>
         </div>
