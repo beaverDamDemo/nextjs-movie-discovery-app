@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import styles from './page.module.css';
 import { fetchPopularMovies } from '@/lib/tmdb';
-import Link from 'next/link';
-import { FaInfo } from 'react-icons/fa';
+import MovieGrid from './MovieGrid';
 
 export default async function Page() {
   const popularMovies = await fetchPopularMovies();
@@ -24,116 +23,50 @@ export default async function Page() {
       </header>
 
       <main className={styles.main}>
-        <div>
-          <h1 className="text-2xl font-bold">Popular Movies</h1>
-          <ul className="mt-5 grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
-            {popularMovies.results.map((movie: any) => (
-              <li
-                key={movie.id}
-                className="bg-white shadow rounded-lg p-4 flex flex-col relative"
-              >
-                <div className="w-full relative">
-                  <img
-                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                    alt={movie.title}
-                    className="rounded-md w-full"
-                  />
+        <MovieGrid movies={popularMovies.results} />
+      </main>
 
-                  {/* group wrapper around button + tooltip */}
-                  <div className="absolute top-2 right-2 group">
-                    <button className="flex items-center justify-center w-8 h-8 rounded-full border border-black bg-white text-black hover:bg-gray-100">
-                      <FaInfo className="w-4 h-4" />
-                    </button>
-                    <div className="absolute right-0 mt-2 w-64 bg-gray-100 text-gray-700 text-sm rounded shadow-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
-                      <p>
-                        <span className="font-semibold">Release date:</span>{' '}
-                        {movie.release_date}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Popularity:</span>{' '}
-                        {movie.popularity}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Vote average:</span>{' '}
-                        {movie.vote_average}/10
-                      </p>
-                      <p>
-                        <span className="font-semibold">Votes:</span>{' '}
-                        {movie.vote_count}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Adult:</span>{' '}
-                        {movie.adult ? 'Yes' : 'No'}
-                      </p>
-                      <p>
-                        <span className="font-semibold">Video:</span>{' '}
-                        {movie.video ? 'Yes' : 'No'}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex-1 space-y-2 mt-2">
-                  <h2 className="text-xl font-bold">
-                    <Link
-                      href={`/movie/${movie.id}`}
-                      className="inline-flex items-center gap-2 py-1 transition-colors duration-100 ease-in-out hover:underline"
-                    >
-                      {movie.title}
-                    </Link>
-                  </h2>
-                  <p className="text-sm text-gray-600 italic">
-                    Original title: {movie.original_title} (
-                    {movie.original_language})
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
+      <div className={`styles.challenge mt-7`}>
+        <h1 className={styles.title}>
+          Next.js Frontend Challenge: Movie Discovery App
+        </h1>
+        <div className={styles.section}>
+          <h2 className={styles.subtitle}>Objective</h2>
+          <p>
+            Build a Next.js application that allows users to browse popular
+            movies and search for specific titles using the TMDB API.
+          </p>
         </div>
-
-        <div className={`styles.challenge mt-7`}>
-          <h1 className={styles.title}>
-            Next.js Frontend Challenge: Movie Discovery App
-          </h1>
-          <div className={styles.section}>
-            <h2 className={styles.subtitle}>Objective</h2>
+        <div className={styles.section}>
+          <h2 className={styles.subtitle}>The Task</h2>
+          <div className={styles.taskItem}>
+            <h3>Home page</h3>
+            <p>Display a grid of “Popular Movies” fetched from the API.</p>
+          </div>
+          <div className={styles.taskItem}>
+            <h3>Search</h3>
             <p>
-              Build a Next.js application that allows users to browse popular
-              movies and search for specific titles using the TMDB API.
+              Implement a search bar that filters results or queries the API.
             </p>
           </div>
-          <div className={styles.section}>
-            <h2 className={styles.subtitle}>The Task</h2>
-            <div className={styles.taskItem}>
-              <h3>Home page</h3>
-              <p>Display a grid of “Popular Movies” fetched from the API.</p>
-            </div>
-            <div className={styles.taskItem}>
-              <h3>Search</h3>
-              <p>
-                Implement a search bar that filters results or queries the API.
-              </p>
-            </div>
-          </div>
-          <div className={styles.section}>
-            <h2 className={styles.subtitle}>Extra credit</h2>
-            <ul>
-              <li>
-                <strong>TypeScript:</strong> Using strict typing throughout the
-                application.
-              </li>
-              <li>
-                <strong>Responsiveness:</strong> A grid system that adapts
-                gracefully to mobile, tablet, and desktop screens.
-              </li>
-              <li>
-                <strong>Dockerize:</strong> Dockerize the whole application.
-              </li>
-            </ul>
-          </div>
         </div>
-      </main>
+        <div className={styles.section}>
+          <h2 className={styles.subtitle}>Extra credit</h2>
+          <ul>
+            <li>
+              <strong>TypeScript:</strong> Using strict typing throughout the
+              application.
+            </li>
+            <li>
+              <strong>Responsiveness:</strong> A grid system that adapts
+              gracefully to mobile, tablet, and desktop screens.
+            </li>
+            <li>
+              <strong>Dockerize:</strong> Dockerize the whole application.
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
