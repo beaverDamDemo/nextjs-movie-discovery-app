@@ -1,14 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { FaInfo } from 'react-icons/fa';
-import { FaSearch } from 'react-icons/fa';
+import { FaInfo, FaSearch } from 'react-icons/fa';
 import styles from './movieGrid.module.css';
 
 export default function MovieGrid({ movies }: { movies: any[] }) {
   const [selectedMovie, setSelectedMovie] = useState<any | null>(null);
   const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setSelectedMovie(null);
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(query.toLowerCase())
   );
@@ -25,6 +35,7 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
+
       <ul className="mt-5 grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
         {filteredMovies.map((movie) => (
           <li
@@ -65,11 +76,17 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
       </ul>
 
       {selectedMovie && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-96 relative">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setSelectedMovie(null)} // close when clicking background
+        >
+          <div
+            className="bg-white rounded-lg shadow-lg p-6 w-96 relative"
+            onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside modal
+          >
             <button
               onClick={() => setSelectedMovie(null)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-black"
+              className="absolute top-2 right-2 text-gray-500 hover:text-black cursor-pointer"
             >
               ✕
             </button>
