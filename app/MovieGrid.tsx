@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { FaInfo, FaSearch } from 'react-icons/fa';
 import styles from './movieGrid.module.css';
@@ -20,6 +20,11 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
+
+  const languages = useMemo(() => {
+    const langs = movies.map((m) => m.original_language);
+    return Array.from(new Set(langs)).sort();
+  }, [movies]);
 
   const filteredMovies = movies.filter((movie) => {
     const matchesQuery = movie.title
@@ -67,10 +72,11 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
             className="border rounded px-2 py-1"
           >
             <option value="">All</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-            <option value="ja">Japanese</option>
+            {languages.map((lang) => (
+              <option key={lang} value={lang}>
+                {lang.toUpperCase()}
+              </option>
+            ))}
           </select>
         </div>
       </div>
