@@ -4,12 +4,13 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { FaInfo, FaSearch } from 'react-icons/fa';
 import styles from './movieGrid.module.css';
+import LanguageSelect from '@/components/LanguageSelect';
 
 export default function MovieGrid({ movies }: { movies: any[] }) {
   const [selectedMovie, setSelectedMovie] = useState<any | null>(null);
   const [query, setQuery] = useState('');
   const [minRating, setMinRating] = useState(0);
-  const [language, setLanguage] = useState('');
+  const [language, setLanguage] = useState('all');
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -31,9 +32,8 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
       .toLowerCase()
       .includes(query.toLowerCase());
     const matchesRating = movie.vote_average >= minRating;
-    const matchesLanguage = language
-      ? movie.original_language === language
-      : true;
+    const matchesLanguage =
+      language === 'all' ? true : movie.original_language === language;
     return matchesQuery && matchesRating && matchesLanguage;
   });
 
@@ -66,18 +66,11 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
 
         <div>
           <label className="block text-sm font-medium">Language</label>
-          <select
+          <LanguageSelect
+            languages={languages}
             value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            className="border rounded px-2 py-1"
-          >
-            <option value="">All</option>
-            {languages.map((lang) => (
-              <option key={lang} value={lang}>
-                {lang.toUpperCase()}
-              </option>
-            ))}
-          </select>
+            onChange={setLanguage}
+          />
         </div>
       </div>
 
