@@ -60,7 +60,7 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
             step="0.5"
             value={minRating}
             onChange={(e) => setMinRating(Number(e.target.value))}
-            className="border rounded px-2 py-1 w-20"
+            className="border rounded px-3 h-10 w-32"
           />
         </div>
 
