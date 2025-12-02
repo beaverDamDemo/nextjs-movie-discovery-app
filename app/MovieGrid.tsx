@@ -8,6 +8,8 @@ import styles from './movieGrid.module.css';
 export default function MovieGrid({ movies }: { movies: any[] }) {
   const [selectedMovie, setSelectedMovie] = useState<any | null>(null);
   const [query, setQuery] = useState('');
+  const [minRating, setMinRating] = useState(0);
+  const [language, setLanguage] = useState('');
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -19,9 +21,16 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const filteredMovies = movies.filter((movie) =>
-    movie.title.toLowerCase().includes(query.toLowerCase())
-  );
+  const filteredMovies = movies.filter((movie) => {
+    const matchesQuery = movie.title
+      .toLowerCase()
+      .includes(query.toLowerCase());
+    const matchesRating = movie.vote_average >= minRating;
+    const matchesLanguage = language
+      ? movie.original_language === language
+      : true;
+    return matchesQuery && matchesRating && matchesLanguage;
+  });
 
   return (
     <div>
@@ -36,6 +45,36 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
         />
       </div>
 
+      <div className="flex gap-4 mt-4 justify-end">
+        <div>
+          <label className="block text-sm font-medium">Min Rating</label>
+          <input
+            type="number"
+            min="0"
+            max="10"
+            step="0.5"
+            value={minRating}
+            onChange={(e) => setMinRating(Number(e.target.value))}
+            className="border rounded px-2 py-1 w-20"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium">Language</label>
+          <select
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+            className="border rounded px-2 py-1"
+          >
+            <option value="">All</option>
+            <option value="en">English</option>
+            <option value="fr">French</option>
+            <option value="es">Spanish</option>
+            <option value="ja">Japanese</option>
+          </select>
+        </div>
+      </div>
+
       <ul className="mt-5 grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
         {filteredMovies.map((movie) => (
           <li
@@ -43,7 +82,7 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
             className="shadow rounded-lg p-4 flex flex-col relative"
           >
             <div className="w-full relative">
-              <Link href={`/movie/${movie.id}`} className="">
+              <Link href={`/movie/${movie.id}`}>
                 <img
                   src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                   alt={movie.title}
@@ -68,10 +107,11 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
                   {movie.title}
                 </Link>
               </h2>
-              <p className="text-sm   italic">
+              <p className="text-sm italic">
                 Original title: {movie.original_title} (
                 {movie.original_language})
               </p>
+              <p className="text-sm">⭐ {movie.vote_average}/10</p>
             </div>
           </li>
         ))}
