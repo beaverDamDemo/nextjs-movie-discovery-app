@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { FaInfo, FaSearch } from 'react-icons/fa';
+import { FaSyncAlt } from 'react-icons/fa';
 import styles from './movieGrid.module.css';
 import LanguageSelect from '@/components/LanguageSelect';
 
@@ -50,9 +51,9 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
         />
       </div>
 
-      <div className="flex gap-4 mt-4 justify-end">
-        <div>
-          <label className="block text-sm font-medium">Min Rating</label>
+      <div className="flex gap-4 mt-4 justify-end items-end">
+        <div className="flex flex-col">
+          <label className="block text-sm font-medium mb-1">Min Rating</label>
           <input
             type="number"
             min="0"
@@ -61,18 +62,34 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
             value={minRating}
             onChange={(e) => setMinRating(Number(e.target.value))}
             className="border border-gray-500 rounded-md px-3 h-10 w-32
-             text-gray-900 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700"
+                 text-gray-900 dark:text-gray-100 dark:bg-gray-800 dark:border-gray-700"
           />
         </div>
 
-        <div>
-          <label className="block text-sm font-medium">Language</label>
+        <div className="flex flex-col">
+          <label className="block text-sm font-medium mb-1">Language</label>
           <LanguageSelect
             languages={languages}
             value={language}
             onChange={setLanguage}
           />
         </div>
+
+        <button
+          onClick={() => {
+            setQuery('');
+            setMinRating(0);
+            setLanguage('all');
+          }}
+          className="h-10 w-10 flex items-center justify-center
+               rounded-md border border-gray-500
+               bg-gray-200 text-gray-900
+               dark:bg-gray-700 dark:text-gray-100 dark:border-gray-700
+               hover:bg-gray-300 dark:hover:bg-gray-600
+               transition-colors"
+        >
+          <FaSyncAlt className="w-4 h-4" />
+        </button>
       </div>
 
       <ul className="mt-5 grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
