@@ -18,7 +18,8 @@ export default async function Page() {
             priority
             className="w-full h-full object-cover"
           />
-          <h1 className="absolute inset-0 flex items-center justify-center text-6xl font-bold text-white">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <h1 className="absolute inset-0 flex items-center justify-center text-6xl font-bold text-white drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">
             Popular Movies
           </h1>
         </div>
