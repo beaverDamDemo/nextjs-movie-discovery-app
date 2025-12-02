@@ -103,7 +103,7 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
                 <img
                   src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                   alt={movie.title}
-                  className="rounded-md w-full"
+                  className="rounded-md w-full transition duration-200 ease-in-out hover:brightness-115"
                 />
               </Link>
 
