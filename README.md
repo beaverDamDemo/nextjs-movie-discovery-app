@@ -21,6 +21,7 @@
 
 When running docker container, no need to do that, .env.local is already within the container.
 It is however possible to pass the .env file thru command line into the container, but with current setup is not needed.
+The `env.local.example` file is not needed at this point. It can be useful because it's in git.
 
 ### Build image locally.
 
