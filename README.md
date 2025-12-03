@@ -1,3 +1,17 @@
+# A list of any requirements I could not implement
+
+- light/dark theme would need to be re-done from scracth
+
+# Issues faced during the implementation
+
+- params passed to single movie kept not being correct
+- dropdown and button styles not working well with dark theme
+
+# What you would improve if you had more time.
+
+- light-dark theme not working correctly
+- tests
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
