@@ -14,6 +14,7 @@
 
 - light-dark theme not working correctly
 - tests
+- docker hot reload keeps not working. Maybe has something to do with running it on windows and not WSL
 
 ## Getting Started
 
