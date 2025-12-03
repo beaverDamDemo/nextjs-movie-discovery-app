@@ -17,7 +17,10 @@
 
 ## Getting Started
 
-- rename env.local.example to .env.local
+- ~~rename env.local.example to .env.local~~
+
+When running docker container, no need to do that, .env.local is already within the container.
+It is however possible to pass the .env file thru command line into the container, but with current setup is not needed.
 
 ### Build image locally.
 
