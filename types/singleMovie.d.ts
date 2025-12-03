@@ -1,0 +1,25 @@
+type SingleMovie = {
+  module: string;
+  backdrop_path: string;
+  title: string;
+  title: string;
+  tagline: string;
+  poster_path: string;
+  title: string;
+  overview: string;
+  release_date: string;
+  runtime: string;
+  budget: string;
+  revenue: string;
+  vote_average: string;
+  vote_count: string;
+  popularity: string;
+  status: string;
+  imdb_id: string;
+  homepage: string;
+  homepage: string;
+  genres: string[];
+  production_companies: string[];
+  production_countries: string[];
+  spoken_languages: string[];
+};

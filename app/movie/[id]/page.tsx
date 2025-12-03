@@ -8,7 +8,7 @@ export default async function SingleMovie({
   params: Promise<{ id: string }>;
 }) {
   const id = (await params).id;
-  const movie = await fetchMovieById(id);
+  const movie: SingleMovie = await fetchMovieById(id);
 
   return (
     <div className={styles.page}>
