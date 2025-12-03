@@ -8,7 +8,7 @@ import styles from './movieGrid.module.css';
 import LanguageSelect from '@/components/LanguageSelect';
 
 export default function MovieGrid({ movies }: { movies: any[] }) {
-  const [selectedMovie, setSelectedMovie] = useState<any | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [query, setQuery] = useState('');
   const [minRating, setMinRating] = useState(0);
   const [language, setLanguage] = useState('all');
@@ -96,14 +96,14 @@ export default function MovieGrid({ movies }: { movies: any[] }) {
         {filteredMovies.map((movie) => (
           <li
             key={movie.id}
-            className="shadow rounded-lg p-4 flex flex-col relative"
+            className="shadow rounded-md p-4 flex flex-col relative"
           >
             <div className="w-full relative">
               <Link href={`/movie/${movie.id}`}>
                 <img
                   src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
                   alt={movie.title}
-                  className="rounded-md w-full transition duration-200 ease-in-out hover:brightness-115"
+                  className="rounded-md w-full transition duration-200 ease-in-out hover:brightness-110"
                 />
               </Link>
 
