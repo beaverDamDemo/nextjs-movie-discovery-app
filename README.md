@@ -6,6 +6,7 @@
 
 - params passed to single movie kept not being correct
 - dropdown and button styles not working well with dark theme
+- if use 'use client' in component, then the bearer token for the API is empty
 
 # What you would improve if you had more time.
 
